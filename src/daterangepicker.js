@@ -43,11 +43,11 @@
       scope: {
         dateLabel: '@',
         startDate: '=',
-        endDate: '=',
+        endDate: '=?',
         minDate: '@',
         maxDate: '@',
         dateType: '@',
-        dateLength: '=',
+        dateLength: '=?',
         dateLang: '@'
       },
       template: ['<div id="dateRangeSelectors" outside-click="hidePicker()">',

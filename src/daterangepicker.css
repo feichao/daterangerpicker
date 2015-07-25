@@ -38,6 +38,9 @@
   width: 110px;
   right: 0;
 }
+.fc-datepicker-button button {
+  background-color: rgb(33, 150, 243) !important;
+}
 
 .end-datepicker {
   margin-left: 5px;
