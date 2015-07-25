@@ -1,0 +1,153 @@
+#dateRangeSelectors {
+  position: relative;
+  display: inline-block;
+}
+
+#dateSelectors * {
+  outline: none;
+}
+
+.pull-left {
+  float: left !important;
+}
+
+.pull-right {
+  float: right !important;
+}
+
+.fc-datepicker-container {
+  z-index: 99;
+  padding-bottom: 60px;
+  display: flex;
+  position: absolute;
+  background-color: white;
+  -webkit-box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
+  -moz-box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
+  box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
+}
+
+.fc-datepicker {
+  width: 350px;
+  height: 300px;
+  background-color: #f7f7f7;
+}
+
+.fc-datepicker-button {
+  position: absolute;
+  bottom: 5px;
+  width: 110px;
+  right: 0;
+}
+
+.end-datepicker {
+  margin-left: 5px;
+}
+
+.fc-datepicker table {
+  width: 350px;
+  table-layout: fixed;
+}
+
+.fc-datepicker table thead tr td {
+  padding-bottom: 10px;
+}
+
+.header-month {
+  text-align: center;
+  margin-top: 8px;
+  display: inline-block;
+}
+
+caption {
+  padding: 0!important;
+}
+
+.header-year-wrapper {
+  height: 40px;
+  color: white;
+  font-size: 1.2em;
+  background-color: rgb(33, 150, 243);
+  width: 50%;
+  float: left;
+}
+
+.header-nav-wrapper {
+  height: 40px;
+  color: white;
+  font-size: 1.2em;
+  background-color: rgb(33, 150, 243);
+}
+
+.header-year {
+  padding-top: 1px;
+  padding-bottom: 0!important;
+  text-align: center;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.fc-datepicker table tbody tr td {
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  color: #626262;
+}
+
+.fc-datepicker table tbody tr td.day-head {
+  background-color: #f7f7f7;
+  cursor: default;
+  border-bottom: 1px solid #ECECEC;
+  font-weight: 600;
+}
+
+.fc-datepicker table tbody tr td.day-head:hover {
+  background-color: #f7f7f7;
+  color: #626262;
+}
+
+.selected {
+  background: rgb(33, 150, 243) !important;
+  color: white !important;
+}
+
+button.md-icon-button.arraw-btn {
+  height: 40px;
+  font-size: 16px;
+  line-height: 40px;
+  width: 40px;
+  margin: 0;
+}
+
+button.md-icon-button.day-button {
+  height: 20px;
+  width: 30px;
+  line-height: 20px;
+  min-height: 20px;
+}
+
+button.md-icon-button.day-button:hover {
+  background-color: rgb(33, 150, 243) !important;
+  color: #f7f7f7!important;
+  border-radius: 20px;
+}
+
+.current-month {
+  color: rgb(33, 150, 243) !important;
+}
+
+.disabled {
+  background: #ECECEC!important;
+  color: #a3a3a3!important;
+}
+
+.disabled:hover {
+  background: #ECECEC!important;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
