@@ -1,12 +1,9 @@
 (function() {
   'use strict';
 
-  /**
-   * By Mo Binni
-   */
   var app, contains;
 
-  app = angular.module('tvAnalyze.ui.dateRange', []);
+  app = angular.module('fc.dateRange', []);
 
   contains = function(container, contained) {
     var node;
