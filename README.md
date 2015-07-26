@@ -17,7 +17,7 @@ angular material dateranger-picker
 > `<daterange-picker dateLang: '@' dateLabel: '@'  startDate: '=' endDate: '=?' minDate: '@' maxDate: '@' dateType: '@' dateLength: '=?'>
 </daterange-picker>`
 
-**parms**
+**params**
 > date-lang: language. Use 'cn' for Chinese, 'en' for English. Default is 'en'.
 > 
 > date-label: label. Default is: Chinese '日期', English 'Date'.
