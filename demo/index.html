@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demoRanger">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>demo daterangerpicker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
+  <link rel="stylesheet" type="text/css" href="bower_components/dateranger-picker/src/daterangepicker.css">
+</head>
+
+<body>
+  <div class="wrapper" ng-controller="DemoCtrl">
+    <daterange-picker date-lang="cn" date-type="range" start-date="startDate" end-date="endDate" date-length="dateLength" max-date="2015-07-23" min-date="2015-07-09" date-label="选择日期段："></daterange-picker>
+  </div>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-aria/angular-aria.js"></script>
+  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script src="bower_components/dateranger-picker/src/daterangepicker.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script>
+  angular
+    .module('demoRanger', [
+      'ngMaterial',
+      'fc.dateRange'
+    ]).controller('DemoCtrl', DemoCtrl);
+
+  function DemoCtrl($scope) {
+    $scope.startDate = "2015-07-07";
+    $scope.endDate = "2015-07-27";
+    $scope.dateLength = 0;
+  }
+  </script>
+</body>
+
+</html>
