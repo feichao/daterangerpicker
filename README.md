@@ -1,6 +1,12 @@
 # dateranger-picker
 angular material dateranger-picker
 
+> ![demo](https://github.com/feichao/Images/blob/master/material-daterangepicker.png)
+
+**demo**
+
+> demo/index.html
+
 **dependencies**
 > daterange-picker depends on angular 1.3.15, angular material ~0.10.0, moment ~2.10.3 as bower.json says.
 
