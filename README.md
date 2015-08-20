@@ -2,7 +2,7 @@
 angular material dateranger-picker
 
 ### [demo](http://blog.0xfc.cn/2015/08/20/daterange-picker/) ###
-> ![demo](https://github.com/feichao/Images/blob/master/material-daterangepicker.png)
+> ![demo](http://7xl1b4.com1.z0.glb.clouddn.com/material-daterangepicker.png)
 
 **demo**
 
