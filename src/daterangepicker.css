@@ -1,6 +1,6 @@
 #dateRangeSelectors {
-  position: relative;
   display: inline-block;
+  position: relative;
 }
 
 #dateSelectors * {
@@ -16,28 +16,29 @@
 }
 
 .fc-datepicker-container {
-  z-index: 99;
-  padding-bottom: 60px;
-  display: flex;
-  position: absolute;
   background-color: white;
+  box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
+  display: flex;
+  padding-bottom: 60px;
+  position: absolute;
+  z-index: 99;
   -webkit-box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
   -moz-box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
-  box-shadow: 1px 1px 7px 0px rgba(37, 53, 50, 0.37);
 }
 
 .fc-datepicker {
-  width: 350px;
-  height: 300px;
   background-color: #f7f7f7;
+  height: 300px;
+  width: 350px;
 }
 
 .fc-datepicker-button {
-  position: absolute;
   bottom: 5px;
-  width: 110px;
+  position: absolute;
   right: 0;
+  width: 110px;
 }
+
 .fc-datepicker-button button {
   background-color: rgb(33, 150, 243) !important;
 }
@@ -47,8 +48,9 @@
 }
 
 .fc-datepicker table {
-  width: 350px;
+  margin: 0;
   table-layout: fixed;
+  width: 350px;
 }
 
 .fc-datepicker table thead tr td {
@@ -56,9 +58,9 @@
 }
 
 .header-month {
-  text-align: center;
-  margin-top: 8px;
   display: inline-block;
+  margin-top: 8px;
+  text-align: center;
 }
 
 caption {
@@ -66,40 +68,41 @@ caption {
 }
 
 .header-year-wrapper {
-  height: 40px;
-  color: white;
-  font-size: 1.2em;
   background-color: rgb(33, 150, 243);
-  width: 50%;
+  color: white;
   float: left;
+  font-size: 1.2em;
+  height: 40px;
+  text-align: center;
+  width: 50%;
 }
 
 .header-nav-wrapper {
-  height: 40px;
+  background-color: rgb(33, 150, 243);
   color: white;
   font-size: 1.2em;
-  background-color: rgb(33, 150, 243);
+  height: 40px;
 }
 
 .header-year {
+  display: inline-block;
+  margin-top: 8px;
   padding-top: 1px;
   padding-bottom: 0!important;
   text-align: center;
-  display: inline-block;
-  margin-top: 8px;
 }
 
 .fc-datepicker table tbody tr td {
-  text-align: center;
-  padding: 5px;
-  cursor: pointer;
   color: #626262;
+  cursor: pointer;
+  padding: 5px;
+  text-align: center;
 }
 
 .fc-datepicker table tbody tr td.day-head {
   background-color: #f7f7f7;
-  cursor: default;
   border-bottom: 1px solid #ECECEC;
+  cursor: default;
   font-weight: 600;
 }
 
@@ -114,24 +117,24 @@ caption {
 }
 
 button.md-icon-button.arraw-btn {
-  height: 40px;
   font-size: 16px;
+  height: 40px;
   line-height: 40px;
-  width: 40px;
   margin: 0;
+  width: 40px;
 }
 
 button.md-icon-button.day-button {
   height: 20px;
-  width: 30px;
   line-height: 20px;
   min-height: 20px;
+  width: 30px;
 }
 
 button.md-icon-button.day-button:hover {
   background-color: rgb(33, 150, 243) !important;
-  color: #f7f7f7!important;
   border-radius: 20px;
+  color: #f7f7f7!important;
 }
 
 .current-month {
@@ -148,9 +151,9 @@ button.md-icon-button.day-button:hover {
 }
 
 .noselect {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
+  user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
-  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
 }
