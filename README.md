@@ -21,7 +21,7 @@ angular material dateranger-picker
 
 **use like this**
 
-> `<daterange-picker dateLang: '@' dateLabel: '@'  startDate: '=' endDate: '=?' minDate: '@' maxDate: '@' dateType: '@' dateLength: '=?'>
+> `<daterange-picker dateLang: '@' dateLabel: '@'  startDate: '=' endDate: '=?' minDate: '@' maxDate: '@' dateType: '@' dateLength: '=?' shouleRefresh: '@'>
 </daterange-picker>`
 
 **params**
@@ -38,6 +38,8 @@ angular material dateranger-picker
 >   max-date & min-date: Min Date and Max Date that can select. Such as '2015-07-08'.
 >  
 >   date-length: diff between start-date and end-date.
+
+>   shoule-refresh: If you modify the start-date or end-date outside the component, you should refresh the component. Default is none
 
 **important**
 

@@ -45,21 +45,22 @@
         maxDate: '@',
         dateType: '@',
         dateLength: '=?',
-        dateLang: '@'
+        dateLang: '@',
+        shouldRefresh: '@'
       },
       template: ['<div id="dateRangeSelectors" outside-click="hidePicker()">',
         '<span>{{dateLabel || lang.label}}</span>',
         '<md-button ng-click="showOrHide()" class="md-raised md-primary">{{ dateType === "range" ? startDate + lang.to + endDate : startDate }}</md-button>',
-        '<div class="fc-datepicker-container" ng-show="isVisible">',
+        '<div class="fc-datepicker-container" ng-class="{true: \'show-datepicker\', false: \'hide-datepicker\'}[isVisible]">',
         '  <div class="fc-datepicker start-datepicker">',
         '    <table>',
         '      <caption>',
-        '        <div class="header-year-wrapper">',
+        '        <div class="header-wrapper">',
         '           <md-button class="md-icon-button arraw-btn noselect pull-left" ng-click="startPreviousYear()">\<</md-button>',
         '           <span class="header-year noselect" ng-class="noselect">{{ startYear + lang.year}}</span>',
         '           <md-button class="md-icon-button arraw-btn noselect pull-right" ng-click="startNextYear()">\></md-button>',
         '        </div>',
-        '        <div class="header-nav-wrapper">',
+        '        <div class="header-wrapper">',
         '           <md-button class="md-icon-button arraw-btn noselect pull-left" ng-click="startPreviousMonth()">\<</md-button>',
         '           <span class="header-month noselect">{{ startMonth + lang.month}}</span>',
         '           <md-button class="md-icon-button arraw-btn noselect pull-right" ng-click="startNextMonth()">\></md-button>',
@@ -88,12 +89,12 @@
         '  <div class="fc-datepicker end-datepicker" ng-show="dateType === \'range\'">',
         '    <table>',
         '      <caption>',
-        '        <div class="header-year-wrapper">',
+        '        <div class="header-wrapper">',
         '           <md-button class="md-icon-button arraw-btn noselect pull-left" ng-click="endPreviousYear()">\<</md-button>',
         '           <span class="header-year noselect" ng-class="noselect">{{ endYear  + lang.year}}</span>',
         '           <md-button class="md-icon-button arraw-btn noselect pull-right" ng-click="endNextYear()">\></md-button>',
         '        </div>',
-        '        <div class="header-nav-wrapper">',
+        '        <div class="header-wrapper">',
         '           <md-button class="md-icon-button arraw-btn noselect pull-left" ng-click="endPreviousMonth()">\<</md-button>',
         '           <span class="header-month noselect">{{ endMonth + lang.month}}</span>',
         '           <md-button class="md-icon-button arraw-btn noselect pull-right" ng-click="endNextMonth()">\></md-button>',
@@ -180,7 +181,7 @@
         if (scope.dateType !== "range") {
           scope.endDate = "9999-12-31";
         }
-        if(scope.dateLang === "cn") {
+        if (scope.dateLang === "cn") {
           scope.lang = lang.cn;
         } else {
           scope.lang = lang.en;
@@ -429,7 +430,9 @@
         };
         scope.showPicker = function() {
           scope.isVisible = true;
-          init();
+          if (scope.shouldRefresh) {
+            init();
+          }
         };
         scope.hidePicker = function() {
           scope.isVisible = false;
@@ -471,6 +474,9 @@
             scope.endWeeks = endData.weeks;
           }
         };
+        if (!scope.shouldRefresh) {
+          init();
+        }
       }
     };
   }]);
