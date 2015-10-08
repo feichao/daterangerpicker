@@ -167,8 +167,8 @@
           saturday: 'Sat',
           sunday: 'Sun'
         },
-        confirm: 'Confirm',
-        cancel: 'Cancel'
+        confirm: 'Ok',
+        cancel: 'Close'
       },
       cn: {
         to: ' ~ ',

@@ -7,6 +7,7 @@
 }
 
 .fc-dateranger-picker-container {
+  background-color: white;
   border-radius: 10px;
   box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.2), -3px -0px 8px 0px rgba(0, 0, 0, 0.2);
   margin-top: 5px;
@@ -65,19 +66,22 @@
   font-size: 1em;
   margin: 5px;
   min-width: 50px;
-  width: 50px;
+  width: 60px;
 }
 
-.fc-dateranger-picker table {
+.fc-dateranger-picker-container .fc-dateranger-picker table {
+  margin: 0;
+  padding: 0;
   width: 100%;
 }
 
-.fc-dateranger-picker table > caption {
+.fc-dateranger-picker-container .fc-dateranger-picker table > caption {
   background-color: rgb(63, 81, 181);
   border-radius: 10px 10px 0 0;
+  text-align: center;
 }
 
-.fc-dateranger-picker table > caption .condition {
+.fc-dateranger-picker-container .fc-dateranger-picker table > caption .condition {
   color: white;
   float: left;
   font-size: 1.2em;
@@ -85,7 +89,7 @@
   width: 50%;
 }
 
-.fc-dateranger-picker table > caption .condition .arraw-btn {
+.fc-dateranger-picker-container .fc-dateranger-picker table > caption .condition .arraw-btn {
   font-size: 16px;
   height: 40px;
   line-height: 40px;
@@ -93,13 +97,14 @@
   width: 40px;
 }
 
-.fc-dateranger-picker table tbody tr td {
+.fc-dateranger-picker-container .fc-dateranger-picker table tbody tr td {
+  border: none;
   color: #626262;
   padding: 5px 0;
   text-align: center;
 }
 
-.fc-dateranger-picker table tbody tr:first-child > td {
+.fc-dateranger-picker-container .fc-dateranger-picker table tbody tr:first-child > td {
   font-weight: bold;
 }
 
