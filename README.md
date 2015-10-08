@@ -21,25 +21,25 @@ angular material dateranger-picker
 
 **use like this**
 
-> `<daterange-picker dateLang: '@' dateLabel: '@'  startDate: '=' endDate: '=?' minDate: '@' maxDate: '@' dateType: '@' dateLength: '=?' shouleRefresh: '@'>
+> `<daterange-picker dateLang: '@' dateLabel: '@'  startDate: '=' endDate: '=?' minDate: '@' maxDate: '@' dateType: '@' dateLength: '=?' confirm-event='&?'>
 </daterange-picker>`
 
 **params**
 > date-lang: language. Use 'cn' for Chinese, 'en' for English. Default is 'en'.
 > 
-> date-label: label. Default is: Chinese '日期', English 'Date'.
+> date-label: label. Default ''.
 > 
 > date-type: 'range' or none. If you want to use this component for daterange-picker, you should set 'range'. If none, this is a just date-picker.
 >  
->   start-date:  Start Date if date-type is 'range'. Select Date if date-type is none.
+> start-date:  Start Date if date-type is 'range'. Select Date if date-type is none.
 >  
->   end-date: End Date if date-type is 'range'. Useless if date-type is none.
+> end-date: End Date if date-type is 'range'. Useless if date-type is none.
 >   
->   max-date & min-date: Min Date and Max Date that can select. Such as '2015-07-08'.
+> max-date & min-date: Min Date and Max Date that can select. Such as '2015-07-08'.
 >  
->   date-length: diff between start-date and end-date.
-
->   shoule-refresh: If you modify the start-date or end-date outside the component, you should refresh the component. Default is none
+> date-length: diff between start-date and end-date.
+>
+> confirm-event: callback when click confirm button.
 
 **important**
 
