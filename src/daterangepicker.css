@@ -41,6 +41,20 @@
   width: 340px;
 }
 
+.fc-dateranger-picker-tempdate {
+  bottom: 5px;
+  left: 10px;
+  position: absolute;
+}
+
+.fc-dateranger-picker-tempdate.temp-end {
+  left: 350px;
+}
+
+.fc-dateranger-picker-tempdate span {
+  font-size: 2em;
+}
+
 .fc-dateranger-picker-actions {
   bottom: 5px;
   position: absolute;

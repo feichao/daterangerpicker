@@ -11,8 +11,8 @@
 </head>
 
 <body>
-  <div class="wrapper" ng-controller="DemoCtrl">
-    <daterange-picker date-lang="cn" date-type="range" start-date="startDate" end-date="endDate" date-length="dateLength" max-date="2015-07-23" min-date="2015-07-09" date-label="选择日期段："></daterange-picker>
+  <div class="wrapper" ng-controller="DemoCtrl" style="margin: 20px;">
+    <daterange-picker date-lang="cn" date-type="range" start-date="startDate" end-date="endDate" date-length="dateLength" max-date="2015-07-23" min-date="2015-07-09" confirm-event="confirm(startDate, endDate)"></daterange-picker>
   </div>
   <script src="bower_components/angular/angular.js"></script>
   <script src="bower_components/angular-animate/angular-animate.js"></script>
@@ -28,9 +28,14 @@
     ]).controller('DemoCtrl', DemoCtrl);
 
   function DemoCtrl($scope) {
-    $scope.startDate = "2015-07-07";
+    $scope.startDate = "2015-07-13";
     $scope.endDate = "2015-07-27";
     $scope.dateLength = 0;
+
+    $scope.confirm = function(start, end) {
+      console.log(start);
+      console.log(end);
+    }
   }
   </script>
 </body>

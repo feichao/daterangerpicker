@@ -14,7 +14,7 @@
     return node !== null;
   };
 
-  app.directive("outsideClick", [
+  app.directive('outsideClick', [
     '$document', '$parse',
     function($document, $parse) {
       return {
@@ -26,9 +26,9 @@
               $scope.$apply(scopeExpression);
             }
           };
-          $document.on("click", onDocumentClick);
-          $element.on("$destroy", function() {
-            $document.off("click", onDocumentClick);
+          $document.on('click', onDocumentClick);
+          $element.on('$destroy', function() {
+            $document.off('click', onDocumentClick);
           });
         }
       };
@@ -46,7 +46,8 @@
         dateType: '@',
         dateLength: '=?',
         dateLang: '@',
-        shouldRefresh: '@'
+        shouldRefresh: '@',
+        confirmEvent: '&?'
       },
       template: [
         '<div class="fc-dateranger" outside-click="hidePicker()">',
@@ -79,7 +80,7 @@
         '          </tr>',
         '          <tr class="days" ng-repeat="week in startWeeks">',
         '            <td ng-repeat="day in week">',
-        '              <md-button class="day-button" ng-class="day.class" ng-click="selectStartDate(day)">',
+        '              <md-button class="day-button" ng-class="day.class" ng-click="selectStartDate(day, $event)">',
         '                {{ day.value.format(\'DD\') }}',
         '              </md-button>',
         '            </td>',
@@ -114,7 +115,7 @@
         '          </tr>',
         '          <tr class="days" ng-repeat="week in endWeeks">',
         '            <td class="" ng-repeat="day in week">',
-        '              <md-button class="day-button" ng-class="day.class" ng-click="selectEndDate(day)">',
+        '              <md-button class="day-button" ng-class="day.class" ng-click="selectEndDate(day, $event)">',
         '                {{ day.value.format(\'DD\') }}',
         '              </md-button>',
         '            </td>',
@@ -122,50 +123,59 @@
         '        </tbody>',
         '      </table>',
         '    </div>',
-        '  <div class="fc-dateranger-picker-actions" layout="row">',
-        '    <md-button>取消</md-button>',
-        '    <md-button class="md-primary" ng-click="hidePicker()">{{lang.confirm}}</md-button>',
+        '    <div class="fc-dateranger-picker-tempdate">',
+        '      <span>{{ startDateTemp.split("-")[2] }}</span> {{ lang.day }}',
+        '    </div>',
+        '    <div class="fc-dateranger-picker-tempdate temp-end">',
+        '      <span>{{ endDateTemp.split("-")[2] }}</span> {{ lang.day }}',
+        '    </div>',
+        '    <div class="fc-dateranger-picker-actions" layout="row">',
+        '      <md-button ng-click="hidePicker()">{{lang.cancel}}</md-button>',
+        '      <md-button class="md-primary" ng-click="confirmBtn()">{{lang.confirm}}</md-button>',
+        '    </div>',
         '  </div>',
-        '</div>',
         '</div>'
-      ].join(""),
+      ].join(''),
       restrict: 'E',
       transclude: true,
-      compile: function (tEle, tAttrs, transcludeFn) {
-        return Compile(tEle, tAttrs, transcludeFn, $document);
+      compile: function(tEle, tAttrs, transcludeFn) {
+        return Compile(tEle, tAttrs, transcludeFn, $document, $timeout);
       }
     };
   }]);
 
-  function Compile(tEle, tAttrs, transcludeFn, $document) {
-    return function (scope, element, attrs) {
-      Link(scope, element, attrs, $document);
+  function Compile(tEle, tAttrs, transcludeFn, $document, $timeout) {
+    return function(scope, element, attrs) {
+      Link(scope, element, attrs, $document, $timeout);
     };
   }
 
-  function Link(scope, element, attrs, doc) {
+  function Link(scope, element, attrs, doc, $timeout) {
     var lang = {
       en: {
-        to: " ~ ",
-        label: "",
-        year: "",
-        month: "",
+        to: ' ~ ',
+        label: '',
+        year: '',
+        month: '',
+        day: '',
         week: {
-          monday: "Mon",
-          tuesday: "Tue",
-          wednesday: "Wed",
-          thursday: "Thu",
-          friday: "Fri",
-          saturday: "Sat",
-          sunday: "Sun"
+          monday: 'Mon',
+          tuesday: 'Tue',
+          wednesday: 'Wed',
+          thursday: 'Thu',
+          friday: 'Fri',
+          saturday: 'Sat',
+          sunday: 'Sun'
         },
-        confirm: "Confirm"
+        confirm: 'Confirm',
+        cancel: 'Cancel'
       },
       cn: {
-        to: " ~ ",
-        label: "",
-        year: "年",
-        month: "月",
+        to: ' ~ ',
+        label: '',
+        year: '年',
+        month: '月',
+        day: '日',
         week: {
           monday: '一',
           tuesday: '二',
@@ -175,7 +185,8 @@
           saturday: '六',
           sunday: '日'
         },
-        confirm: "确定"
+        confirm: '确定',
+        cancel: '取消'
       }
     };
 
@@ -184,17 +195,20 @@
     scope.startMonth = scope.endMonth = scope.month = '';
     scope.startYear = scope.endYear = scope.year = '';
 
-    scope.dateFormat = "YYYY-MM-DD";
+    scope.startDateTemp = scope.startDate;
+    scope.endDateTemp = scope.endDate;
+
+    scope.dateFormat = 'YYYY-MM-DD';
     if (scope.minDate) {
       scope.minDate = moment(scope.minDate, scope.dateFormat);
     }
     if (scope.maxDate) {
       scope.maxDate = moment(scope.maxDate, scope.dateFormat);
     }
-    if (scope.dateType !== "range") {
-      scope.endDate = "9999-12-31";
+    if (scope.dateType !== 'range') {
+      scope.endDateTemp = '9999-12-31';
     }
-    if (scope.dateLang === "cn") {
+    if (scope.dateLang === 'cn') {
       scope.lang = lang.cn;
     } else {
       scope.lang = lang.en;
@@ -208,8 +222,8 @@
       if (scope.maxDate) {
         scope.maxDate = moment(scope.maxDate, scope.dateFormat);
       }
-      var start = moment(scope.startDate, scope.dateFormat);
-      var end = moment(scope.endDate, scope.dateFormat);
+      var start = moment(scope.startDateTemp, scope.dateFormat);
+      var end = moment(scope.endDateTemp, scope.dateFormat);
       var myDay;
       for (day = 0; day < monthLength; day++) {
         newDate = moment(startDay).add(day, 'd');
@@ -217,27 +231,27 @@
           value: newDate,
           isEnabled: true,
           isCurrentMonth: false,
-          class: ""
+          class: ''
         };
 
         if (newDate.month() === month) {
           myDay.isCurrentMonth = true;
-          myDay.class = " current-month";
+          myDay.class = 'current-month';
         }
 
         if (scope.minDate && newDate < scope.minDate || scope.maxDate && newDate > scope.maxDate || isStart && newDate > end || !isStart && newDate < start) {
           myDay.isEnabled = false;
-          myDay.class = "disabled";
-        } else if (newDate >= start && newDate <= end && scope.dateType === "range") {
-          myDay.class = " selected";
+          myDay.class = 'disabled';
+        } else if (newDate >= start && newDate <= end && scope.dateType === 'range') {
+          myDay.class = 'selected';
         } else {
           if (!myDay.isCurrentMonth) {
-            myDay.class = "";
+            myDay.class = '';
           }
         }
 
-        if (newDate.format(scope.dateFormat) === scope.startDate && scope.dateType !== "range") {
-          myDay.class = " selected";
+        if (newDate.format(scope.dateFormat) === scope.startDateTemp && scope.dateType !== 'range') {
+          myDay.class = 'selected';
         }
 
         monthDays.push(myDay);
@@ -301,9 +315,16 @@
     };
 
     function processDay(isCurrentMonth, day, isStart) {
-      var start = moment(scope.startDate, scope.dateFormat);
-      var end = moment(scope.endDate, scope.dateFormat);
+      var start = moment(scope.startDateTemp, scope.dateFormat);
+      var end = moment(scope.endDateTemp, scope.dateFormat);
       var tempweeks;
+
+      if (scope.minDate) {
+        scope.minDate = moment(scope.minDate, scope.dateFormat);
+      }
+      if (scope.maxDate) {
+        scope.maxDate = moment(scope.maxDate, scope.dateFormat);
+      }
 
       if (!isCurrentMonth) {
         var temp = getData(day.value, isStart);
@@ -327,15 +348,15 @@
           tempweeks = scope.endWeeks;
         }
       }
-      if (scope.dateType === "range") {
+      if (scope.dateType === 'range') {
         tempweeks.forEach(function(week) {
           week.forEach(function(d) {
             d.isEnabled = true;
             if (scope.minDate && d.value < scope.minDate || scope.maxDate && d.value > scope.maxDate || !isStart && d.value < start || isStart && d.value > end) {
-              d.class = "disabled";
+              d.class = 'disabled';
               d.isEnabled = false;
-            } else if (d.value >= start && d.value <= end && scope.dateType === "range") {
-              d.class = " selected";
+            } else if (d.value >= start && d.value <= end && scope.dateType === 'range') {
+              d.class = 'selected';
             }
           });
         });
@@ -343,15 +364,14 @@
         scope.startWeeks.forEach(function(week) {
           week.forEach(function(d) {
             if (scope.minDate && d.value < scope.minDate || scope.maxDate && d.value > scope.maxDate || d.value > end) {
-              d.class = "disabled";
+              d.class = 'disabled';
               d.isEnabled = false;
             } else if (d.value >= start && d.value <= end) {
-              d.class = " selected";
+              d.class = 'selected';
             } else {
-              if (d.class === " selected" && d.isCurrentMonth) {
-                d.class = " current-month";
-              } else if (d.class === " selected" && !d.isCurrentMonth) {
-                d.class = "";
+              var classes = d.class.split(' ');
+              if (classes.indexOf('selected') !== -1) {
+                d.class = d.isCurrentMonth ? 'current-month' : '';
               }
             }
 
@@ -360,15 +380,14 @@
         scope.endWeeks.forEach(function(week) {
           week.forEach(function(d) {
             if (scope.minDate && d.value < scope.minDate || scope.maxDate && d.value > scope.maxDate || d.value < start) {
-              d.class = "disabled";
+              d.class = 'disabled';
               d.isEnabled = false;
             } else if (d.value >= start && d.value <= end) {
-              d.class = " selected";
+              d.class = 'selected';
             } else {
-              if (d.class === " selected" && d.isCurrentMonth) {
-                d.class = " current-month";
-              } else if (d.class === " selected" && !d.isCurrentMonth) {
-                d.class = "";
+              var classes = d.class.split(' ');
+              if (classes.indexOf('selected') !== -1) {
+                d.class = d.isCurrentMonth ? 'current-month' : '';
               }
             }
           });
@@ -376,58 +395,41 @@
       }
     }
 
-    function _processDay(isCurrentMonth, day, isStart) {
-      return function() {
-        processDay(isCurrentMonth, day, isStart);
-      };
-    }
-
-    scope.selectStartDate = function(day) {
+    scope.selectStartDate = function(day, $event) {
+      $event.stopPropagation();
       if (day.isEnabled) {
         scope.startWeeks.forEach(function(week) {
           week.forEach(function(day) {
-            if (day.class === " selected" && day.isCurrentMonth) {
-              day.class = " current-month";
-            } else if (day.class === " selected" && !day.isCurrentMonth) {
-              day.class = "";
+            var classes = day.class.split(' ');
+            if (classes.indexOf('selected') !== -1) {
+              day.class = day.isCurrentMonth ? 'current-month' : '';
             }
           });
         });
-        scope.startDate = day.value.format(scope.dateFormat);
-        scope.dateLength = moment(scope.endDate).diff(moment(scope.startDate), 'days') + 1;
-        day.class = " selected";
+        scope.startDateTemp = day.value.format(scope.dateFormat);
+        scope.dateLength = moment(scope.endDateTemp).diff(moment(scope.startDateTemp), 'days') + 1;
+        day.class = 'selected';
 
-        if (!day.isCurrentMonth) {
-          $timeout(_processDay(false, day, true), 10);
-        } else {
-          processDay(true, day, true);
-        }
+        processDay(day.isCurrentMonth, day, true);
       }
     };
 
-    scope.selectEndDate = function(day) {
+    scope.selectEndDate = function(day, $event) {
+      $event.stopPropagation();
       if (day.isEnabled) {
         scope.endWeeks.forEach(function(week) {
           week.forEach(function(day) {
-            if (day.class === " selected" && day.isCurrentMonth) {
-              day.class = " current-month";
-            } else if (day.class === " selected" && !day.isCurrentMonth) {
-              day.class = "";
+            var classes = day.class.split(' ');
+            if (classes.indexOf('selected') !== -1) {
+              day.class = day.isCurrentMonth ? 'current-month' : '';
             }
           });
         });
-        scope.endDate = day.value.format(scope.dateFormat);
-        scope.dateLength = moment(scope.endDate).diff(moment(scope.startDate), 'days') + 1;
-        day.class = " selected";
+        scope.endDateTemp = day.value.format(scope.dateFormat);
+        scope.dateLength = moment(scope.endDateTemp).diff(moment(scope.startDateTemp), 'days') + 1;
+        day.class = 'selected';
 
-        var start = moment(scope.startDate, scope.dateFormat);
-        var end = moment(scope.endDate, scope.dateFormat);
-
-        if (!day.isCurrentMonth) {
-          $timeout(_processDay(false, day, false), 10);
-        } else {
-          processDay(true, day, false);
-        }
+        processDay(day.isCurrentMonth, day, false);
       }
     };
 
@@ -447,6 +449,16 @@
     };
     scope.hidePicker = function() {
       scope.isVisible = false;
+    };
+    scope.confirmBtn = function() {
+      if(scope.confirmEvent) {
+        scope.startDate = scope.startDateTemp;
+        scope.endDate = scope.endDateTemp;
+        $timeout(function(){
+          scope.confirmEvent();
+        }, 20);
+      }
+      scope.hidePicker();
     };
 
     var getData = function(mo, isStart) {
@@ -473,13 +485,13 @@
     };
 
     init = function() {
-      var startData = getData(scope.startDate, true);
+      var startData = getData(scope.startDateTemp, true);
       scope.startMonth = startData.month;
       scope.startYear = startData.year;
       scope.startWeeks = startData.weeks;
 
-      if (scope.dateType === "range") {
-        var endData = getData(scope.endDate, false);
+      if (scope.dateType === 'range') {
+        var endData = getData(scope.endDateTemp, false);
         scope.endMonth = endData.month;
         scope.endYear = endData.year;
         scope.endWeeks = endData.weeks;
