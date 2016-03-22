@@ -444,6 +444,8 @@
     scope.showPicker = function() {
       scope.isVisible = true;
       if (scope.shouldRefresh) {
+        scope.startDateTemp = scope.startDate;
+        scope.endDateTemp = scope.endDate;
         init();
       }
     };
